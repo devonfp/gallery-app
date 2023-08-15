@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-const NavBar = () => (
+const navBar = () => (
    <ul className="main-nav">
       <li><NavLink to="cats">Cats</NavLink></li>
       <li><NavLink to="dogs">Dogs</NavLink></li>
@@ -8,4 +8,4 @@ const NavBar = () => (
     </ul>    
 );
 
-export default NavBar;
+export default navBar;
