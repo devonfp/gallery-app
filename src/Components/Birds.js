@@ -1,10 +1,10 @@
-import PhotoList from "./PhotoList";
+//import PhotoList from "./PhotoList";
 
 const Birds = () => {
     return (
       <div>
         <h1>Birds</h1>
-        <p><PhotoList/></p>
+        {/*<p><PhotoList/></p>*/}
       </div>
     );
   };
