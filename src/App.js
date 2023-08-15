@@ -12,7 +12,7 @@ import PhotoList from "./Components/PhotoList";
 import Birds from "./Components/Birds";
 import Cats from "./Components/Cats";
 import Dogs from "./Components/Dogs";
-import NavBar from "./Components/NavBar";
+import NavigationBar from "./Components/NavigationBar";
 //import Home from "./Components/Home";
 
 
@@ -49,7 +49,7 @@ function App() {
  return (
    <><ul className="main-nav">
      <SearchForm changeQuery={handleQueryChange} />
-     <NavBar />
+     <NavigationBar />
      <Routes>
      {/*<Route path="/" element={<Home />} />*/}
       <Route path="cats" element={<Cats />} />
