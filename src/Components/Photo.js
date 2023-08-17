@@ -3,5 +3,6 @@ const Photo = props => (
       <img src={props.url} alt=""/>
     </li>
   );
+  console.log(Photo)
   
   export default Photo;

@@ -3,9 +3,12 @@ import NotFound from './NotFound';
 
 const PhotoList = props => { 
   const results = props.data;
-  let photos;
-  if (results && results.length > 0) {
-    photos = results.map(photo => <Photo url={photo.images.fixed_height.url} key={photo.id}/>);
+  let photos = [];
+  if (results.length > 0) {
+    photos = results.map((photo) => {
+    console.log(photo.images.fixed_height.url);
+    return <Photo url={photo.images.fixed_height.url} key={photo.id}/>;
+    });
   } else {
     photos = <NotFound/>
   }
@@ -16,5 +19,6 @@ const PhotoList = props => {
     </ul> 
   );
 }
+//console.log(PhotoList)
 
 export default PhotoList;

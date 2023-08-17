@@ -29,7 +29,8 @@ function App() {
         .then(response => {
           // handle success
           if (activeFetch) {
-          setPhotos(response.data.data);
+          setPhotos(response.data);
+          console.log(response.data)
           setLoading(false);
           }
         })
@@ -51,7 +52,7 @@ function App() {
      <SearchForm changeQuery={handleQueryChange} />
      <NavigationBar />
      <Routes>
-     {/*<Route path="/" element={<Home />} />*/}
+     <Route path="/" element={<PhotoList data={photos}/>} />
       <Route path="cats" element={<Cats />} />
       <Route path="dogs" element={<Dogs />} />
       <Route path="birds" element={<Birds />}>
