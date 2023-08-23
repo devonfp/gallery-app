@@ -6,3 +6,4 @@
   console.log(Photo)
   
   export default Photo;*/
+  
