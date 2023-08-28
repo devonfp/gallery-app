@@ -1,7 +1,10 @@
-//import PhotoList from "./PhotoList";
+import { useEffect} from "react";
 
-const Birds = () => {
-<h1>Birds</h1>
-}
+  function Birds({ setQuery }) {
+    useEffect(() => {
+      setQuery('birds');
+    }, [setQuery]);
+    }
+
 
 export default Birds;

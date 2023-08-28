@@ -6,14 +6,16 @@ const PhotoList = props => {
   //console.log(props.data)
   let photos = [];
   //console.log(results.length);
-  if (results.photos.photo.length > 0) {
+  if (results.photos?.photo.length > 0) {
     photos = results.photos.photo.map((photo) => {
      const url = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`;  
     console.log(url);
     return(
-      <ul className="photo-wrap">
-     <img src={url} alt={photo.title} key={photo.id} width={'100%'} height={'auto'}/> 
-      </ul> 
+  <ul className="photo-wrap">
+      <li key={photo.id}>
+     <img src={url} alt={photo.title}/> 
+     </li>
+  </ul> 
     );
   }); 
 } else {

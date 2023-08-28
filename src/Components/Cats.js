@@ -1,13 +1,9 @@
-//import PhotoList from "./PhotoList";
+import { useEffect} from "react";
 
-
-const Cats = () => {
-    return (
-      <div>
-        <h1>Cats</h1>
-        {/*<p><PhotoList/></p>*/}
-      </div>
-    );
-  };
+  function Cats({ setQuery }) {
+    useEffect(() => {
+      setQuery('cats');
+    }, [setQuery]);
+    }
 
 export default Cats;  

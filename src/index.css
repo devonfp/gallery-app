@@ -110,7 +110,7 @@ input {
 }
 
 .photo-wrap img {
-  min-width: 100%;
+  min-width: 40%;
 }
 
 .photo-container ul {
@@ -130,8 +130,8 @@ input {
 
 .photo-container ul img {
   width: 100%;
-  transform: scale(1.25);
-  transition: transform 1.25s;
+/*  transform: scale(1.25);*/  
+transition: transform 1.25s;
 }
 
 .photo-container li:hover img {

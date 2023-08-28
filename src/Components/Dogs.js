@@ -1,13 +1,10 @@
-//import PhotoList from "./PhotoList";
+import { useEffect} from "react";
 
-const Dogs = () => {
-    return (
-      <div>
-        <h1>Dogs</h1>
-       {/*<p><PhotoList/></p>*/}
-      </div>
-    );
-  };
+  function Dogs({ setQuery }) {
+    useEffect(() => {
+      setQuery('dogs');
+    }, [setQuery]);
+    }
 
 
 export default Dogs;  

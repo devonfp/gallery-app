@@ -6,7 +6,7 @@ const SearchForm = props => {
   const handleSubmit = e => {
     e.preventDefault();
     props.changeQuery(searchText.current.value);
-    e.currentTarget.reset()
+    //e.currentTarget.reset()
   }
 
   return (

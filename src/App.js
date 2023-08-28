@@ -13,13 +13,13 @@ import Birds from "./Components/Birds";
 import Cats from "./Components/Cats";
 import Dogs from "./Components/Dogs";
 import NavigationBar from "./Components/NavigationBar";
-//import Home from "./Components/Home";
+import Home from "./Components/Home";
 
 
 function App() {
 
     const [photos, setPhotos] = useState([]);
-    const [query, setQuery] = useState('sunsets');
+    const [query, setQuery] = useState(['sunsets']);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -46,27 +46,46 @@ function App() {
       setQuery(searchText);
     }
 
+    const handleDogsQueryChange = () => {
+      setQuery('dogs');
+    }
 
- return (
-   <><ul className="main-nav">
-     <SearchForm changeQuery={handleQueryChange} />
-     <NavigationBar />
-     <Routes>
-     <Route path="/" element={<PhotoList data={photos}/>} />
-      <Route path="cats" element={<Cats />} />
-      <Route path="dogs" element={<Dogs />} />
-      <Route path="birds" element={<Birds />}>
-        <Route path="*" element={<NotFound />} />
-      </Route>
-     </Routes>
-    </ul>
-   <div className="photo-container">
+    const handleBirdsQueryChange = () => {
+      setQuery('birds');
+    }
+
+    const handleCatsQueryChange = () => {
+      setQuery('cats');
+    }
+
+    const handleHomeQueryChange = () => {
+      setQuery('sunsets');
+    }
+
+    return (
+      <>
+        <ul className="main-nav">
+          <SearchForm changeQuery={handleQueryChange} />
+          <NavigationBar />
+        </ul>
+        <Routes>
+          <Route path="/" element={<Home setQuery={handleHomeQueryChange} />} />
+          <Route path="cats" element={<Cats setQuery={handleCatsQueryChange} />} />
+          <Route path="dogs" element={<Dogs setQuery={handleDogsQueryChange} />} />
+          <Route path="birds" element={<Birds setQuery={handleBirdsQueryChange}/>} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+
+
+           <div className="photo-wrap">
        {(loading)
          ? <p className="load-Design">Loading...</p>
          : <PhotoList data={photos} />}
      </div>
-     </>
-  );
-};
+      </>
+    );
+  }
+
+
 
 export default App;

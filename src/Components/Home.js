@@ -1,12 +1,12 @@
+import { useEffect} from "react";
 
-const Home = () => {
-    return (
-      <div>
-        <h1>Home</h1>
-       {/*<p><PhotoList/></p>*/}
-      </div>
-    );
-  };
+  function Home({ setQuery }) {
+    useEffect(() => {
+      setQuery('sunsets');
+    }, [setQuery]);
+    }
+
+
 
 
 export default Home;
