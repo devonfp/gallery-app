@@ -1,4 +1,4 @@
-import { useEffect} from "react";
+/*import { useEffect} from "react";
 
   function Cats({ setQuery }) {
     useEffect(() => {
@@ -6,4 +6,4 @@ import { useEffect} from "react";
     }, [setQuery]);
     }
 
-export default Cats;  
+export default Cats;  */

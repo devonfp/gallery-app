@@ -9,58 +9,75 @@ import { Routes, Route } from 'react-router-dom';
 import SearchForm from "./Components/SearchForm";
 import NotFound from "./Components/NotFound";
 import PhotoList from "./Components/PhotoList";
-import Birds from "./Components/Birds";
+/*import Birds from "./Components/Birds";
 import Cats from "./Components/Cats";
-import Dogs from "./Components/Dogs";
+import Dogs from "./Components/Dogs";*/
 import NavigationBar from "./Components/NavigationBar";
-import Home from "./Components/Home";
-
+/*import Home from "./Components/Home";
+*/
 
 function App() {
 
-    const [photos, setPhotos] = useState([]);
-    const [query, setQuery] = useState(['sunsets']);
+    //const [photos, setPhotos] = useState([]);
+    const [sunsets, setSunsetPhotos] = useState([]);
+    const [dogs, setDogPhotos] = useState([]);
+    const [birds, setBirdPhotos] = useState([]);
+    const [cats, setCatPhotos] = useState([]);
+    const [query, setQuery] = useState(['']);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
+   useEffect(() => { 
+    const fetchData = async () => {
       setLoading(true);
       let activeFetch = true;
-      axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
-        .then(response => {
-          // handle success
-          if (activeFetch) {
-          setPhotos(response.data);
-          console.log(response.data)
-          setLoading(false);
+      try {
+        const response = await axios
+          .get(
+            `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`
+          );
+        // handle success
+        if (activeFetch) {
+          if (query === 'sunsets') {
+            setSunsetPhotos(response.data);
+          } else if (query === 'dogs') {
+            setDogPhotos(response.data);
+          } else if (query === 'birds') {
+            setBirdPhotos(response.data);
+          } else if (query === 'cats') {
+            setCatPhotos(response.data);
           }
-        })
-        .catch(error => {
-          // handle error
-          console.log('Error fetching and parsing data', error);
-        })
-    }, [query]);
+          setLoading(false);
+        }
+        return response.data;
+      } catch (error) {
+        // handle error
+        console.log('Error fetching and parsing data', error);
+      }
+    };
 
+      fetchData();
+    }, [query]);
 
       // Fetches photos based on the new query. Results are displayed to the user
     const handleQueryChange = searchText => {
       setQuery(searchText);
+    };
+
+/*    const handleDogsDataChange = () => {
+      fetchData('dogs');
     }
 
-    const handleDogsQueryChange = () => {
-      setQuery('dogs');
+    const handleBirdsDataChange = () => {
+      fetchData('birds');
     }
 
-    const handleBirdsQueryChange = () => {
-      setQuery('birds');
+    const handleCatsDataChange = () => {
+      fetchData('cats');
     }
 
-    const handleCatsQueryChange = () => {
-      setQuery('cats');
-    }
-
-    const handleHomeQueryChange = () => {
-      setQuery('sunsets');
-    }
+    const handleHomeDataChange = () => {
+      fetchData('sunsets');
+    }*/
 
     return (
       <>
@@ -69,10 +86,10 @@ function App() {
           <NavigationBar />
         </ul>
         <Routes>
-          <Route path="/" element={<Home setQuery={handleHomeQueryChange} />} />
-          <Route path="cats" element={<Cats setQuery={handleCatsQueryChange} />} />
-          <Route path="dogs" element={<Dogs setQuery={handleDogsQueryChange} />} />
-          <Route path="birds" element={<Birds setQuery={handleBirdsQueryChange}/>} />
+          <Route path="/" element={<PhotoList data={sunsets}  />} />
+          <Route path="cats" element={<PhotoList data={cats}  />} />
+          <Route path="dogs" element={<PhotoList data={dogs} />} />
+          <Route path="birds" element={<PhotoList data={birds}/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
@@ -80,12 +97,11 @@ function App() {
            <div className="photo-wrap">
        {(loading)
          ? <p className="load-Design">Loading...</p>
-         : <PhotoList data={photos} />}
+         : <PhotoList data={sunsets} />}
      </div>
       </>
     );
-  }
-
+       }
 
 
 export default App;

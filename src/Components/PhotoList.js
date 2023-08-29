@@ -11,7 +11,7 @@ const PhotoList = props => {
      const url = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`;  
     console.log(url);
     return(
-  <ul className="photo-wrap">
+  <ul className="photo-wrap" key={photo.id}>
       <li key={photo.id}>
      <img src={url} alt={photo.title}/> 
      </li>

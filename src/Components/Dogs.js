@@ -1,4 +1,4 @@
-import { useEffect} from "react";
+/*import { useEffect} from "react";
 
   function Dogs({ setQuery }) {
     useEffect(() => {
@@ -7,4 +7,4 @@ import { useEffect} from "react";
     }
 
 
-export default Dogs;  
+export default Dogs;  */

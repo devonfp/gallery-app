@@ -1,4 +1,4 @@
-import { useEffect} from "react";
+/*import { useEffect} from "react";
 
   function Birds({ setQuery }) {
     useEffect(() => {
@@ -7,4 +7,4 @@ import { useEffect} from "react";
     }
 
 
-export default Birds;
+export default Birds;*/
