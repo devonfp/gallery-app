@@ -19,16 +19,17 @@ import NavigationBar from "./Components/NavigationBar";
 function App() {
 
     //const [photos, setPhotos] = useState([]);
-    const [sunsets, setSunsetPhotos] = useState([]);
-    const [dogs, setDogPhotos] = useState([]);
-    const [birds, setBirdPhotos] = useState([]);
-    const [cats, setCatPhotos] = useState([]);
-    const [query, setQuery] = useState(['']);
-    const [loading, setLoading] = useState(true);
+    const [sunsets, setSunsetPhotos] = useState('');
+    const [dogs, setDogPhotos] = useState('');
+    const [birds, setBirdPhotos] = useState('');
+    const [cats, setCatPhotos] = useState('');
+    const [query, setQuery] = useState('');
+    //const [loading, setLoading] = useState(true);
 
-   useEffect(() => { 
-    const fetchData = async () => {
-      setLoading(true);
+
+
+    const fetchData = async (query) => {
+      //setLoading(true);
       let activeFetch = true;
       try {
         const response = await axios
@@ -46,7 +47,7 @@ function App() {
           } else if (query === 'cats') {
             setCatPhotos(response.data);
           }
-          setLoading(false);
+          //setLoading(false);
         }
         return response.data;
       } catch (error) {
@@ -55,29 +56,19 @@ function App() {
       }
     };
 
-      fetchData();
-    }, [query]);
+
 
       // Fetches photos based on the new query. Results are displayed to the user
     const handleQueryChange = searchText => {
       setQuery(searchText);
-    };
+    }; 
 
-/*    const handleDogsDataChange = () => {
+    useEffect(() => { 
       fetchData('dogs');
-    }
-
-    const handleBirdsDataChange = () => {
-      fetchData('birds');
-    }
-
-    const handleCatsDataChange = () => {
       fetchData('cats');
-    }
-
-    const handleHomeDataChange = () => {
+      fetchData('birds');
       fetchData('sunsets');
-    }*/
+    }, [query]);
 
     return (
       <>
@@ -94,14 +85,15 @@ function App() {
         </Routes>
 
 
-           <div className="photo-wrap">
+           {/*<div className="photo-wrap">
        {(loading)
          ? <p className="load-Design">Loading...</p>
-         : <PhotoList data={sunsets} />}
-     </div>
+         : <PhotoList data={sunsets} />}     
+</div>*/}
       </>
     );
        }
+       
 
 
 export default App;
