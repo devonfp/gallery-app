@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 
+
 const SearchForm = props => {
   const searchText = useRef(null);
 
@@ -7,6 +8,7 @@ const SearchForm = props => {
     e.preventDefault();
     props.changeQuery(searchText.current.value);
     //e.currentTarget.reset()
+    searchText.current.value = '';
   }
 
   return (

@@ -9,9 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 import SearchForm from "./Components/SearchForm";
 import NotFound from "./Components/NotFound";
 import PhotoList from "./Components/PhotoList";
-/*import Birds from "./Components/Birds";
-import Cats from "./Components/Cats";
-import Dogs from "./Components/Dogs";*/
+
 import NavigationBar from "./Components/NavigationBar";
 /*import Home from "./Components/Home";
 */
@@ -24,6 +22,7 @@ function App() {
     const [birds, setBirdPhotos] = useState('');
     const [cats, setCatPhotos] = useState('');
     const [query, setQuery] = useState('');
+    const [fallbackPhotos, setFallbackPhotos] = useState('');
     //const [loading, setLoading] = useState(true);
 
 
@@ -46,24 +45,29 @@ function App() {
             setBirdPhotos(response.data);
           } else if (query === 'cats') {
             setCatPhotos(response.data);
+          } else {
+            setFallbackPhotos(response.data);
           }
+          activeFetch = false;
           //setLoading(false);
         }
-        return response.data;
+        //return response.data;
       } catch (error) {
         // handle error
         console.log('Error fetching and parsing data', error);
       }
     };
-
+  
 
 
       // Fetches photos based on the new query. Results are displayed to the user
     const handleQueryChange = searchText => {
       setQuery(searchText);
+      fetchData(searchText);
     }; 
 
     useEffect(() => { 
+      console.log('Fetching data for query:', query);
       fetchData('dogs');
       fetchData('cats');
       fetchData('birds');
@@ -77,10 +81,11 @@ function App() {
           <NavigationBar />
         </ul>
         <Routes>
-          <Route path="/" element={<PhotoList data={sunsets}  />} />
-          <Route path="cats" element={<PhotoList data={cats}  />} />
-          <Route path="dogs" element={<PhotoList data={dogs} />} />
+          <Route path="/" element={<PhotoList data={sunsets} />} />
+          <Route path="cats" element={<PhotoList data={cats}/>} />
+          <Route path="dogs" element={<PhotoList data={dogs}/>} />
           <Route path="birds" element={<PhotoList data={birds}/>} />
+          <Route path="/search/:query" element={<PhotoList data={fallbackPhotos} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
@@ -93,7 +98,7 @@ function App() {
       </>
     );
        }
-       
+
 
 
 export default App;
