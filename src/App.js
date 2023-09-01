@@ -2,17 +2,13 @@ import React, { useCallback, useEffect, useState } from "react";
 import { apiKey } from './config';
 import axios from "axios";
 import { Routes, Route } from 'react-router-dom';
-//import { BrowserRouter as Router} from 'react-router-dom';
 
 
 // App Components
 import SearchForm from "./Components/SearchForm";
 import NotFound from "./Components/NotFound";
 import PhotoList from "./Components/PhotoList";
-
 import NavigationBar from "./Components/NavigationBar";
-/*import Home from "./Components/Home";
-*/
 
 function App() {
 
@@ -57,15 +53,9 @@ function App() {
         // handle error
         console.log('Error fetching and parsing data', error);
       }
-    }, [query]);
+    }, []);
   
 
-
-      // Fetches photos based on the new query. Results are displayed to the user
-    const handleQueryChange = searchText => {
-      setQuery(searchText);
-      //fetchData(searchText);
-    }; 
 
     useEffect(() => { 
       console.log('Fetching data for query:', query);
@@ -74,7 +64,13 @@ function App() {
       fetchData('birds');
       fetchData('sunsets');
       fetchData(query);
-    }, [query]);
+    }, [query, fetchData]);
+
+          // Fetches photos based on the new query. Results are displayed to the user
+          const handleQueryChange =  searchText => {
+            setQuery(searchText);
+            fetchData(searchText);
+          }; 
 
     return (
       <>
