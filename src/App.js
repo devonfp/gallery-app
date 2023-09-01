@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { apiKey } from './config';
 import axios from "axios";
 import { Routes, Route } from 'react-router-dom';
@@ -17,17 +17,17 @@ import NavigationBar from "./Components/NavigationBar";
 function App() {
 
     //const [photos, setPhotos] = useState([]);
+    const [search, setSearchPhotos] = useState('');
     const [sunsets, setSunsetPhotos] = useState('');
     const [dogs, setDogPhotos] = useState('');
     const [birds, setBirdPhotos] = useState('');
     const [cats, setCatPhotos] = useState('');
     const [query, setQuery] = useState('');
-    const [fallbackPhotos, setFallbackPhotos] = useState('');
     //const [loading, setLoading] = useState(true);
 
 
 
-    const fetchData = async (query) => {
+    const fetchData = useCallback( async query => {
       //setLoading(true);
       let activeFetch = true;
       try {
@@ -39,31 +39,32 @@ function App() {
         if (activeFetch) {
           if (query === 'sunsets') {
             setSunsetPhotos(response.data);
-          } else if (query === 'dogs') {
+          } 
+          
+          else if (query === 'dogs') {
             setDogPhotos(response.data);
           } else if (query === 'birds') {
             setBirdPhotos(response.data);
           } else if (query === 'cats') {
             setCatPhotos(response.data);
           } else {
-            setFallbackPhotos(response.data);
+            setSearchPhotos(response.data);
           }
           activeFetch = false;
           //setLoading(false);
         }
-        //return response.data;
       } catch (error) {
         // handle error
         console.log('Error fetching and parsing data', error);
       }
-    };
+    }, [query]);
   
 
 
       // Fetches photos based on the new query. Results are displayed to the user
     const handleQueryChange = searchText => {
       setQuery(searchText);
-      fetchData(searchText);
+      //fetchData(searchText);
     }; 
 
     useEffect(() => { 
@@ -72,6 +73,7 @@ function App() {
       fetchData('cats');
       fetchData('birds');
       fetchData('sunsets');
+      fetchData(query);
     }, [query]);
 
     return (
@@ -85,7 +87,7 @@ function App() {
           <Route path="cats" element={<PhotoList data={cats}/>} />
           <Route path="dogs" element={<PhotoList data={dogs}/>} />
           <Route path="birds" element={<PhotoList data={birds}/>} />
-          <Route path="/search/:query" element={<PhotoList data={fallbackPhotos} />} />
+          <Route path="/search/:query" element={<PhotoList data={search} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
