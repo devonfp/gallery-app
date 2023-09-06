@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { apiKey } from './config';
 import axios from "axios";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 
 
 // App Components
@@ -11,21 +11,19 @@ import PhotoList from "./Components/PhotoList";
 import NavigationBar from "./Components/NavigationBar";
 
 function App() {
-
-    //const [photos, setPhotos] = useState([]);
     const [search, setSearchPhotos] = useState('');
     const [sunsets, setSunsetPhotos] = useState('');
     const [dogs, setDogPhotos] = useState('');
     const [birds, setBirdPhotos] = useState('');
     const [cats, setCatPhotos] = useState('');
     const [query, setQuery] = useState('');
-    //const [loading, setLoading] = useState(true);
-
+    const [loading, setLoading] = useState(true);
 
 
     const fetchData = useCallback( async query => {
-      //setLoading(true);
+      setLoading(true);
       let activeFetch = true;
+
       try {
         const response = await axios
           .get(
@@ -45,17 +43,18 @@ function App() {
             setCatPhotos(response.data);
           } else {
             setSearchPhotos(response.data);
-          }
-          activeFetch = false;
+          } 
+          //activeFetch = false;
           //setLoading(false);
         }
       } catch (error) {
         // handle error
         console.log('Error fetching and parsing data', error);
+      } finally {
+      setLoading(false);
       }
     }, []);
   
-
 
     useEffect(() => { 
       console.log('Fetching data for query:', query);
@@ -68,31 +67,28 @@ function App() {
 
           // Fetches photos based on the new query. Results are displayed to the user
           const handleQueryChange =  searchText => {
-            setQuery(searchText);
             fetchData(searchText);
+            setQuery(searchText);
+            
+            console.log(searchText)            
           }; 
+
+
 
     return (
       <>
         <ul className="main-nav">
-          <SearchForm changeQuery={handleQueryChange} />
+          <SearchForm handleQueryChange={handleQueryChange} />
           <NavigationBar />
         </ul>
         <Routes>
-          <Route path="/" element={<PhotoList data={sunsets} />} />
-          <Route path="cats" element={<PhotoList data={cats}/>} />
-          <Route path="dogs" element={<PhotoList data={dogs}/>} />
-          <Route path="birds" element={<PhotoList data={birds}/>} />
-          <Route path="/search/:query" element={<PhotoList data={search} />} />
+          <Route path="/" element={loading ? <p className="load-Design">Loading...</p> :  <PhotoList data={sunsets} />} />
+          <Route path="cats" element={loading ? <p className="load-Design">Loading...</p> :  <PhotoList data={cats}/>} />
+          <Route path="dogs" element={loading ? <p className="load-Design">Loading...</p> :  <PhotoList data={dogs}/>} />
+          <Route path="birds" element={loading ? <p className="load-Design">Loading...</p> :  <PhotoList data={birds}/>} />
+          <Route path="/search/:query" element={loading ? <p className="load-Design">Loading...</p> :  <PhotoList data={search} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-
-
-           {/*<div className="photo-wrap">
-       {(loading)
-         ? <p className="load-Design">Loading...</p>
-         : <PhotoList data={sunsets} />}     
-</div>*/}
       </>
     );
        }
