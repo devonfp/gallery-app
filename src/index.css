@@ -98,11 +98,11 @@ input {
   background-color: #275270;
 }
 
-.photo-wrap {
+/*.photo-wrap {
   background-color: #fff;
   margin-bottom: .8em;
   position: relative;
-}
+}*/
 
 .photo-list a {
   display: block;
@@ -114,7 +114,7 @@ input {
 }
 
 .photo-container ul {
-  /*display: flex;*/
+  display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   -ms-align-items: flex-start;
@@ -130,7 +130,7 @@ input {
 
 .photo-container ul img {
   width: 100%;
-/*  transform: scale(1.25);*/  
+transform: scale(1.25);  
 transition: transform 1.25s;
 }
 
