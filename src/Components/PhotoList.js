@@ -12,21 +12,20 @@ const PhotoList = props => {
 
   if (results.photos?.photo.length > 0) {
     photos = results.photos.photo.map((photo) => {
-     const url = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_${size}.jpg`;  
-    console.log(url);
-    return(
-  <ul className="photo-container" key={photo.id}>
-      <li key={photo.id}>
-     <img src={url} alt={photo.title}/> 
-     </li>
-  </ul> 
-    );
-  }); 
-
-} else {
-    photos = <NotFound/>
+      const url = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_${size}.jpg`;
+      return <li key={photo.id}><img src={url} alt={photo.title}/></li>;
+    });
+  } else {
+    photos = <NotFound />;
   }
- return photos;
+
+  return (
+    <div className="photo-container">
+      <ul>
+        {photos.length > 0 ? photos : <li>No photos found</li>}
+      </ul>
+    </div>
+  );
 };
 //console.log(PhotoList)
 
