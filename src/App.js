@@ -10,6 +10,8 @@ import NotFound from "./Components/NotFound";
 import PhotoList from "./Components/PhotoList";
 import NavigationBar from "./Components/NavigationBar";
 
+
+
 function App() {
     const [search, setSearchPhotos] = useState('');
     const [sunsets, setSunsetPhotos] = useState('');
@@ -44,8 +46,6 @@ function App() {
           } else {
             setSearchPhotos(response.data);
           } 
-          //activeFetch = false;
-          //setLoading(false);
         }
       } catch (error) {
         // handle error
@@ -55,7 +55,7 @@ function App() {
       }
     }, []);
   
-
+// Data is fetched whenever the user enters a new search query or changes the type of animal they are searching for.
     useEffect(() => { 
       console.log('Fetching data for query:', query);
       fetchData('dogs');
