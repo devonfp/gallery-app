@@ -3,7 +3,6 @@ import { apiKey } from './config';
 import axios from "axios";
 import { Routes, Route} from 'react-router-dom';
 
-
 // App Components
 import SearchForm from "./Components/SearchForm";
 import NotFound from "./Components/NotFound";
@@ -65,6 +64,7 @@ function App() {
       fetchData(query);
     }, [query, fetchData]);
 
+    
           // Fetches photos based on the new query. Results are displayed to the user
           const handleQueryChange =  searchText => {
             fetchData(searchText);
@@ -72,8 +72,6 @@ function App() {
             
             console.log(searchText)            
           }; 
-
-
 
     return (
       <>

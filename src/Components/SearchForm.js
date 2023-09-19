@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+
 const SearchForm = props => {
   const searchText = useRef(null);
   const navigate = useNavigate();
+
 
   const handleSubmit = e => {
     e.preventDefault();
