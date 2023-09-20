@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { apiKey } from './config';
 import axios from "axios";
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route, Outlet, useNavigate} from 'react-router-dom';
 
 // App Components
 import SearchForm from "./Components/SearchForm";
@@ -19,6 +19,7 @@ function App() {
     const [cats, setCatPhotos] = useState('');
     const [query, setQuery] = useState('');
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
 
     const fetchData = useCallback( async query => {
@@ -67,7 +68,8 @@ function App() {
     
           // Fetches photos based on the new query. Results are displayed to the user
           const handleQueryChange =  searchText => {
-            fetchData(searchText);
+            navigate(`/search/${searchText}`);
+            //fetchData(searchText);
             setQuery(searchText);
             
             console.log(searchText)            
@@ -79,12 +81,14 @@ function App() {
           <SearchForm handleQueryChange={handleQueryChange} />
           <NavigationBar />
         </ul>
+
+        <Outlet />
         <Routes>
           <Route path="/" element={loading ? <p className="load-Design">Loading...</p> :  <PhotoList data={sunsets} />} />
           <Route path="cats" element={loading ? <p className="load-Design">Loading...</p> :  <PhotoList data={cats}/>} />
           <Route path="dogs" element={loading ? <p className="load-Design">Loading...</p> :  <PhotoList data={dogs}/>} />
           <Route path="birds" element={loading ? <p className="load-Design">Loading...</p> :  <PhotoList data={birds}/>} />
-          <Route path="/search/:query" element={loading ? <p className="load-Design">Loading...</p> :  <PhotoList data={search} />} />
+          <Route path="/search/:query" element={loading ? <p className="load-Design">Loading...</p> :  <PhotoList data={search}  query={query} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </>
