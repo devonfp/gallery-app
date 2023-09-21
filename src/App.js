@@ -77,6 +77,7 @@ function App() {
 
     return (
       <>
+      <div className="container">
         <ul className="main-nav">
           <SearchForm handleQueryChange={handleQueryChange} />
           <NavigationBar />
@@ -91,6 +92,7 @@ function App() {
           <Route path="/search/:query" element={loading ? <p className="load-Design">Loading...</p> :  <PhotoList data={search}  query={query} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </div>
       </>
     );
        }
